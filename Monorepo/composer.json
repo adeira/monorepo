@@ -1,0 +1,16 @@
+{
+  "name": "adeira/monorepo-composer-plugin",
+  "type": "composer-plugin",
+  "extra": {
+    "class": "Adeira\\Monorepo\\Composer\\Plugin"
+  },
+  "require": {
+    "composer-plugin-api": "^1.1",
+    "nette/utils": "^2.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Adeira\\Monorepo\\": "."
+    }
+  }
+}

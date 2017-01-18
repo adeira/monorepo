@@ -1,0 +1,35 @@
+{
+  "repositories": [
+    {
+      "type": "path",
+      "url": "./Monorepo"
+    }
+  ],
+  "require": {
+    "php": "^7.0",
+    "adeira/code-quality": "^1.0",
+    "adeira/monorepo-composer-plugin": "*",
+    "nette/application": "^2.4",
+    "nette/di": "^2.4",
+    "roave/security-advisories": "dev-master"
+  },
+  "replace": {
+    "adeira/compiler-extension": "self.version",
+    "adeira/csp": "self.version"
+  },
+  "require-dev": {
+    "composer/composer": "^1.3",
+    "latte/latte": "^2.4",
+    "nette/bootstrap": "^2.4",
+    "nette/php-generator": "^2.4",
+    "nette/tester": "dev-master",
+    "nette/utils": "^2.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Adeira\\": ["Component/compiler-extension/src/", "Component/csp/src/"],
+      "Adeira\\Tests\\": ["Component/compiler-extension/tests/helpers/", "Component/csp/tests/"]
+    }
+  },
+  "minimum-stability": "dev"
+}
