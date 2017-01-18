@@ -2,10 +2,17 @@
 
 namespace Adeira\Monorepo\Composer;
 
-use Composer\Json\JsonFile;
-use Composer\Json\JsonManipulator;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use Composer\DependencyResolver\Pool;
+use Composer\Json\{
+	JsonFile, JsonManipulator
+};
+use Composer\Package\Version\VersionSelector;
+use Composer\Repository\{
+	CompositeRepository, PlatformRepository, RepositoryFactory
+};
+use Symfony\Component\Console\{
+	Input\InputInterface, Output\OutputInterface
+};
 
 class EjectCommand extends \Composer\Command\BaseCommand
 {
@@ -31,17 +38,52 @@ class EjectCommand extends \Composer\Command\BaseCommand
 
 			$manipulator = new JsonManipulator(file_get_contents($packageComposerFile));
 
-			$manipulator->addMainKey('require', []);
-			foreach ($packageComposerData['require'] as $packageName => $packageConstraint) {
-				$manipulator->addLink('require', $packageName, $composerData['require'][$packageName]);
+			if (isset($packageComposerData['require'])) {
+				$manipulator->addMainKey('require', []);
+				foreach ($packageComposerData['require'] as $packageName => $packageConstraint) {
+					if (!isset($composerData['require'][$packageName])) {
+						$constraint = $this->findRecommendedRequireVersion($packageName);
+					} else {
+						$constraint = $composerData['require'][$packageName];
+					}
+					$manipulator->addLink('require', $packageName, $constraint);
+				}
 			}
-			$manipulator->addMainKey('require-dev', []);
-			foreach ($packageComposerData['require-dev'] as $packageName => $packageConstraint) {
-				$manipulator->addLink('require-dev', $packageName, $composerData['require-dev'][$packageName]);
+
+			if (isset($packageComposerData['require-dev'])) {
+				$manipulator->addMainKey('require-dev', []);
+				foreach ($packageComposerData['require-dev'] as $packageName => $packageConstraint) {
+					if (!isset($composerData['require-dev'][$packageName])) {
+						$constraint = $this->findRecommendedRequireVersion($packageName);
+					} else {
+						$constraint = $composerData['require-dev'][$packageName];
+					}
+					$manipulator->addLink('require-dev', $packageName, $constraint);
+				}
 			}
 
 			file_put_contents($packageComposerFile, $manipulator->getContents());
 		}
+	}
+
+	/**
+	 * FIXME: dry!
+	 */
+	private function findRecommendedRequireVersion(string $package): string
+	{
+		$io = $this->getIO();
+		$pool = new Pool;
+		$pool->addRepository(new CompositeRepository(array_merge(
+			[new PlatformRepository],
+			RepositoryFactory::defaultRepos($io)
+		)));
+		$versionSelector = new VersionSelector($pool);
+		$io->write(sprintf(' > <info>Find best Composer version constraint for %s</info>', $package));
+		$packageCandidate = $versionSelector->findBestCandidate($package);
+		if (!$packageCandidate) {
+			throw new \Exception('Cannot find package ' . $package); //TODO: info o jaký bundle se jedná
+		}
+		return $versionSelector->findRecommendedRequireVersion($packageCandidate);
 	}
 
 }

@@ -52,19 +52,23 @@ class CollectCommand extends \Composer\Command\BaseCommand
 		$requireDev = $this->requireDev;
 		foreach ($componentsData as $componentName => $componentData) {
 			$require += $componentData['require']; //TODO: biggest constraint
-			$requireDev += $componentData['require-dev'];
+			$requireDev += $componentData['require-dev'] ?? [];
 
 			// update 'replace' section
 			$io->write(sprintf(' > <comment>Generate replace definition for %s</comment>', $componentName));
 			$manipulator->addLink('replace', $componentName, 'self.version');
 
-			foreach ($componentData['autoload']['psr-4'] as $namespace => $destination) {
-				$name = ltrim($componentName, 'adeira/');
-				$autoload[preg_replace('~\\\~', '\\\\', $namespace)][] = "Component/$name/$destination";
+			if (isset($componentData['autoload'])) {
+				foreach ($componentData['autoload']['psr-4'] as $namespace => $destination) {
+					$name = ltrim($componentName, 'adeira/');
+					$autoload[preg_replace('~\\\~', '\\\\', $namespace)][] = "Component/$name/$destination";
+				}
 			}
-			foreach ($componentData['autoload-dev']['psr-4'] as $namespace => $destination) { //FIXME: dry
-				$name = ltrim($componentName, 'adeira/');
-				$autoload[preg_replace('~\\\~', '\\\\', $namespace)][] = "Component/$name/$destination";
+			if (isset($componentData['autoload-dev'])) {
+				foreach ($componentData['autoload-dev']['psr-4'] as $namespace => $destination) { //FIXME: dry
+					$name = ltrim($componentName, 'adeira/');
+					$autoload[preg_replace('~\\\~', '\\\\', $namespace)][] = "Component/$name/$destination";
+				}
 			}
 		}
 
@@ -155,7 +159,7 @@ class CollectCommand extends \Composer\Command\BaseCommand
 
 			// require
 			$key = 'require';
-			if (isset($componentsData[$data['name']][$key])) {
+/*			if (isset($componentsData[$data['name']][$key])) {
 				$manipulator->addMainKey($key, []); //reset require key
 				foreach ($componentsData[$data['name']][$key] as $package => $constraint) {
 					$manipulator->addLink($key, $package, NULL, TRUE); //add requires with NULL constraint
@@ -167,10 +171,10 @@ class CollectCommand extends \Composer\Command\BaseCommand
 			if (isset($componentsData[$data['name']][$key])) {
 				$manipulator->addMainKey($key, []); //reset require-dev key
 				foreach ($componentsData[$data['name']][$key] as $package => $constraint) {
-					$manipulator->addLink($key, $package, NULL, TRUE); //add requires with NULL constraint
+					//$manipulator->addLink($key, $package, NULL, TRUE); //add requires with NULL constraint
 				}
 			}
-
+*/
 			file_put_contents($composerFile, $manipulator->getContents());
 		}
 		return $componentsData;
