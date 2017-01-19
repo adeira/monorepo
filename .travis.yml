@@ -4,10 +4,14 @@ php:
   - 7.0
   - 7.1
 
+git:
+  submodules: false
+
 before_script:
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule update --init
   - composer selfupdate --no-progress
   - composer install --prefer-dist
-  - git submodule update --init
 
 script:
   - ./run-tests.sh
