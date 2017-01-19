@@ -20,3 +20,7 @@ script:
 
 notifications:
   email: false
+  slack:
+    secure: E9/06iE3B0Kpb4yYcz/LIMlrZHjt3fj2vxSsMNKfJMNMl2fqJhMAQ2sg8xZQomqI9ncLKUQtDntDL/sHiD/6FeQjnus7GFiTiCETFCblHsHz3mgyayUepvMtrZwHaonI/oeNGWH1nB7BgAf/mfU2ZTJOgREYViA3yByw011xlzFxZx/YBuERbz2Ek+KIwGap3dHZZw1PUoeOwjEubfBSdsI6NFD2YhSokC+m2bw/flbLqeY/5zSejA53idWjPK0GDFXXGu2gNSnc9Y0zZrAxHnZZaIRoXR7KEqEEXv2ssgyTiiTbgB4/2QMWIk9JkpqBPv7FNCjIRofYXMbcllmPW6kbOeGYn/aZNkB/MrWldJDR2E7uyeBeSX/kMx01N5vlAxi4Py5ehGP7nPuku8ha8bBOWkBv32IrnAjfzNCoxFoFvzZsbHRxk5N+kI9gH85/ZPWKYV543azEuklFI0K6hCLL67b0gyQteialp4kOiGA0ZGcwHAM324fp/nwP7m/UMKSwgF8XUKpomkVZrLaGERGLn9+B6u+7xyWUT/xsvVfDnu/MLFP7OdZVXsnbI3EIrDXl/vzJDUrjWo3J++i0ZWNcTnv+gkJzBYEeiTI1iGTasR2Qjc37AD+h6DVMgNYZxsjMgO4arI3oYxHYjFZmEK8ykYBwdIRz+gYb9CY8pSE=
+    on_success: change
+    on_failure: always
