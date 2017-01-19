@@ -20,7 +20,7 @@ class CollectCommand extends \Composer\Command\BaseCommand
 
 	private $require = [
 		'php' => '^7.0',
-		'adeira/monorepo-composer-plugin' => '*',
+		'adeira/monorepo-composer-plugin' => 'dev-master',
 		'roave/security-advisories' => 'dev-master',
 	];
 
