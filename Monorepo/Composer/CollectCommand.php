@@ -146,11 +146,11 @@ class CollectCommand extends \Composer\Command\BaseCommand
 		$componentVendor = $componentDirectory . '/vendor';
 		if (!is_dir($componentVendor)) {
 			mkdir($componentVendor);
-			file_put_contents(
-				$componentVendor . '/autoload.php',
-				"<?php require dirname(dirname(dirname(__DIR__))) . '/vendor/autoload.php';\n"
-			);
 		}
+		file_put_contents(
+			$componentVendor . '/autoload.php',
+			"<?php return require dirname(dirname(dirname(__DIR__))) . '/vendor/autoload.php';\n"
+		);
 	}
 
 }
