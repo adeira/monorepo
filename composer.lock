@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "71ba279fab06be1004fefb3cd905bada",
-    "content-hash": "b841562024796e265f3ab3ae067ba05e",
+    "hash": "ddf60bfde083b72c59d9731e677e7cb0",
+    "content-hash": "3306fd86cfbed632fbf36d9645aad9ed",
     "packages": [
         {
             "name": "adeira/monorepo-composer-plugin",
@@ -975,12 +975,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "714afb64d0da07d0da7178cbf5680008e4b0180b"
+                "reference": "2469e3155801a058a2c6d993386fcee80dc3ce10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/714afb64d0da07d0da7178cbf5680008e4b0180b",
-                "reference": "714afb64d0da07d0da7178cbf5680008e4b0180b",
+                "url": "https://api.github.com/repos/nette/utils/zipball/2469e3155801a058a2c6d993386fcee80dc3ce10",
+                "reference": "2469e3155801a058a2c6d993386fcee80dc3ce10",
                 "shasum": ""
             },
             "require": {
@@ -1030,7 +1030,7 @@
             ],
             "description": "Nette Utility Classes",
             "homepage": "https://nette.org",
-            "time": "2017-01-16 12:30:14"
+            "time": "2017-01-18 17:09:18"
         },
         {
             "name": "psr/log",
@@ -1769,12 +1769,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/latte.git",
-                "reference": "bde343740f9cd6bf9fdf54e4adf3e887f8bc54fb"
+                "reference": "05187e99af7032a1debfef64270404ff37e41e0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/latte/zipball/bde343740f9cd6bf9fdf54e4adf3e887f8bc54fb",
-                "reference": "bde343740f9cd6bf9fdf54e4adf3e887f8bc54fb",
+                "url": "https://api.github.com/repos/nette/latte/zipball/05187e99af7032a1debfef64270404ff37e41e0e",
+                "reference": "05187e99af7032a1debfef64270404ff37e41e0e",
                 "shasum": ""
             },
             "require": {
@@ -1827,7 +1827,7 @@
                 "templating",
                 "twig"
             ],
-            "time": "2017-01-16 05:09:01"
+            "time": "2017-01-18 17:12:26"
         },
         {
             "name": "mrtnzlml/testbench",

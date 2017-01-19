@@ -7,7 +7,6 @@
   ],
   "require": {
     "php": "^7.0",
-    "adeira/code-quality": "^1.0",
     "adeira/monorepo-composer-plugin": "*",
     "consistence/coding-standard": "^0.12.0",
     "jakub-onderka/php-parallel-lint": "^0.9.2",
@@ -40,7 +39,7 @@
       "Adeira\\": ["Component/compiler-extension/src/", "Component/workflow/src/"],
       "Adeira\\Tests\\": ["Component/compiler-extension/tests/helpers/", "Component/workflow/tests/"],
       "Adeira\\Monolog\\": ["Component/monolog/Monolog/"],
-      "Adeira\\Monolog\\Tests\\": ["Component/monolog/Tests/Adeira/Monolog/"],
+      "Adeira\\Monolog\\Tests\\": ["Component/monolog/tests/Adeira/Monolog/"],
       "Librette\\Application\\PresenterFactory\\": ["Component/presenter-factory/src/"]
     }
   },
