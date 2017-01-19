@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/adeira/superproject.svg?branch=master)](https://travis-ci.org/adeira/superproject)
+
 This is superproject for Adeira subpackages. You can read about superprojects and submodules in Git here:
 - https://git-scm.com/docs/git-submodule
 - https://git-scm.com/docs/git-push#git-push---recurse-submodulescheckon-demandno
