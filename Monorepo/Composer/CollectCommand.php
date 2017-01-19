@@ -46,10 +46,11 @@ class CollectCommand extends \Composer\Command\BaseCommand
 		$manipulator = new JsonManipulator(file_get_contents($composerFile));
 		$manipulator->addMainKey('replace', []); // reset replace section
 
-		$componentsData = $this->fetchComponentsDataAndReplaceConstraints($componentsDirectory);
+		$componentsData = $this->fetchComponentsData($componentsDirectory);
 		$autoload = [];
 		$require = $this->require;
 		$requireDev = $this->requireDev;
+		$restricted = [];
 		foreach ($componentsData as $componentName => $componentData) {
 			$require += $componentData['require']; //TODO: biggest constraint
 			$requireDev += $componentData['require-dev'] ?? [];
@@ -57,6 +58,7 @@ class CollectCommand extends \Composer\Command\BaseCommand
 			// update 'replace' section
 			$io->write(sprintf(' > <comment>Generate replace definition for %s</comment>', $componentName));
 			$manipulator->addLink('replace', $componentName, 'self.version');
+			$restricted[$componentName] = $componentName;
 
 			if (isset($componentData['autoload'])) {
 				foreach ($componentData['autoload']['psr-4'] as $namespace => $destination) {
@@ -73,10 +75,27 @@ class CollectCommand extends \Composer\Command\BaseCommand
 		}
 
 		// update 'require' and 'require-dev'
-		$io->write(' > <comment>Generate require definition</comment>');
-		$manipulator = $this->updateRequire($manipulator, $composerFile, $require);
-		$io->write(' > <comment>Generate require-dev definition</comment>');
-		$manipulator = $this->updateRequireDev($manipulator, $composerFile, $requireDev);
+		foreach(['require' => 'require', 'require-dev' => 'requireDev'] as $definitionKey => $definition) {
+			$io->write(" > <comment>Generate $definitionKey definition</comment>");
+
+			$manipulator->addMainKey($definitionKey, []); //reset require key
+
+			$componentJson = new JsonFile($composerFile);
+			$data = $componentJson->read();
+
+			foreach ($$definition as $package => $constraint) {
+				if (in_array($package, $restricted)) {
+					continue;
+				}
+				if (!$constraint) { //NULL in subpackage
+					$constraint = $data[$definitionKey][$package] ?? NULL;
+				}
+				if (!$constraint) { //NULL even in main package
+					$constraint = $this->findRecommendedRequireVersion($package);
+				}
+				$manipulator->addLink($definitionKey, $package, $constraint, TRUE);
+			}
+		}
 
 		// update 'autoload'
 		$io->write(sprintf(' > <comment>Generate autoloaders</comment>'));
@@ -84,46 +103,6 @@ class CollectCommand extends \Composer\Command\BaseCommand
 
 		// persist
 		file_put_contents($composerFile, $manipulator->getContents());
-	}
-
-	private function updateRequire(JsonManipulator $manipulator, string $composerFile, array $require)
-	{
-		$manipulator->addMainKey('require', []); //reset require key
-
-		$componentJson = new JsonFile($composerFile);
-		$data = $componentJson->read();
-
-		foreach ($require as $package => $constraint) {
-			if (!$constraint) { //NULL in subpackage
-				$constraint = $data['require'][$package] ?? NULL;
-			}
-			if (!$constraint) { //NULL even in main package
-				$constraint = $this->findRecommendedRequireVersion($package);
-			}
-			$manipulator->addLink('require', $package, $constraint, TRUE);
-		}
-
-		return $manipulator;
-	}
-
-	private function updateRequireDev(JsonManipulator $manipulator, string $composerFile, array $requireDev)
-	{
-		$manipulator->addMainKey('require-dev', []); //reset require-dev key
-
-		$componentJson = new JsonFile($composerFile);
-		$data = $componentJson->read();
-
-		foreach ($requireDev as $package => $constraint) {
-			if (!$constraint) { //NULL in subpackage
-				$constraint = $data['require-dev'][$package] ?? NULL;
-			}
-			if (!$constraint) { //NULL even in main package
-				$constraint = $this->findRecommendedRequireVersion($package);
-			}
-			$manipulator->addLink('require-dev', $package, $constraint, TRUE);
-		}
-
-		return $manipulator;
 	}
 
 	private function findRecommendedRequireVersion(string $package): string
@@ -143,7 +122,7 @@ class CollectCommand extends \Composer\Command\BaseCommand
 		return $versionSelector->findRecommendedRequireVersion($packageCandidate);
 	}
 
-	private function fetchComponentsDataAndReplaceConstraints($componentsDirectory): array
+	private function fetchComponentsData($componentsDirectory): array
 	{
 		$componentsData = [];
 		foreach (array_diff(scandir($componentsDirectory), ['..', '.']) as $componentDirectory) {
@@ -157,24 +136,6 @@ class CollectCommand extends \Composer\Command\BaseCommand
 			$componentsData[$data['name']] = $data;
 			$manipulator = new JsonManipulator(file_get_contents($composerFile));
 
-			// require
-			$key = 'require';
-/*			if (isset($componentsData[$data['name']][$key])) {
-				$manipulator->addMainKey($key, []); //reset require key
-				foreach ($componentsData[$data['name']][$key] as $package => $constraint) {
-					$manipulator->addLink($key, $package, NULL, TRUE); //add requires with NULL constraint
-				}
-			}
-
-			// require-dev
-			$key = 'require-dev';
-			if (isset($componentsData[$data['name']][$key])) {
-				$manipulator->addMainKey($key, []); //reset require-dev key
-				foreach ($componentsData[$data['name']][$key] as $package => $constraint) {
-					//$manipulator->addLink($key, $package, NULL, TRUE); //add requires with NULL constraint
-				}
-			}
-*/
 			file_put_contents($composerFile, $manipulator->getContents());
 		}
 		return $componentsData;
