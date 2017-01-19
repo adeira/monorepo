@@ -60,6 +60,7 @@ There are two commands to help maintain submodules in the superproject:
 
     composer adeira:collect
     composer adeira:eject
+    composer adeira:create <submoduleName>
 
 Collect command will generate root `composer.json` with all rependencies, autoloaders and replace definitions. This is because I want only one vendor with one dependency versions. It's ispired by [this article](http://www.whitewashing.de/2015/04/11/monolithic_repositories_with_php_and_composer.html) and [this project](https://github.com/beberlei/composer-monorepo-plugin).
 

@@ -1,0 +1,28 @@
+{
+  "name": "adeira/<<packageName>>",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Martin Zlámal",
+      "homepage": "http://zlml.cz/"
+    }
+  ],
+  "require": {
+    "php": "^7.0",
+    "adeira/code-quality": "^1.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^0.6.0",
+    "nette/tester": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Adeira\\<<PackageName>>\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Adeira\\<<PackageName>>\\Tests\\": "tests/helpers/"
+    }
+  }
+}

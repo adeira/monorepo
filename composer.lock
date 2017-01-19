@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3c2b5c2590200926e1eb185d9e6fd3e2",
+    "hash": "1d151359b691a0be14204786366c17f1",
     "content-hash": "381413ffd3760269e3096ab06a42b90a",
     "packages": [
         {
@@ -302,16 +302,16 @@
         },
         {
             "name": "nette/application",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/application.git",
-                "reference": "58a8d2288dd2aae755538ccb380af183a356892d"
+                "reference": "3e30a1ec941717668bcdab336d690484700207cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/application/zipball/58a8d2288dd2aae755538ccb380af183a356892d",
-                "reference": "58a8d2288dd2aae755538ccb380af183a356892d",
+                "url": "https://api.github.com/repos/nette/application/zipball/3e30a1ec941717668bcdab336d690484700207cd",
+                "reference": "3e30a1ec941717668bcdab336d690484700207cd",
                 "shasum": ""
             },
             "require": {
@@ -332,7 +332,7 @@
                 "mockery/mockery": "^0.9.5",
                 "nette/di": "~2.4",
                 "nette/forms": "~2.4",
-                "nette/robot-loader": "~2.4",
+                "nette/robot-loader": "^2.4.2 || ^3.0",
                 "nette/security": "~2.4",
                 "nette/tester": "~2.0",
                 "tracy/tracy": "^2.4"
@@ -373,7 +373,7 @@
             ],
             "description": "Nette Application MVC Component",
             "homepage": "https://nette.org",
-            "time": "2016-12-20 11:12:00"
+            "time": "2017-01-19 10:34:07"
         },
         {
             "name": "nette/bootstrap",
@@ -683,16 +683,16 @@
         },
         {
             "name": "nette/http",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/http.git",
-                "reference": "71602f2ab582312b5ae016a9f0b8df1a8a116f86"
+                "reference": "7727507129934e18c59bdc4060fd32730b0d9e87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/http/zipball/71602f2ab582312b5ae016a9f0b8df1a8a116f86",
-                "reference": "71602f2ab582312b5ae016a9f0b8df1a8a116f86",
+                "url": "https://api.github.com/repos/nette/http/zipball/7727507129934e18c59bdc4060fd32730b0d9e87",
+                "reference": "7727507129934e18c59bdc4060fd32730b0d9e87",
                 "shasum": ""
             },
             "require": {
@@ -703,7 +703,7 @@
                 "nette/nette": "<2.2"
             },
             "require-dev": {
-                "nette/di": "^2.4",
+                "nette/di": "^2.4.6",
                 "nette/tester": "~2.0",
                 "tracy/tracy": "^2.4"
             },
@@ -739,7 +739,7 @@
             ],
             "description": "Nette HTTP Component",
             "homepage": "https://nette.org",
-            "time": "2016-12-19 14:56:54"
+            "time": "2017-01-18 03:03:04"
         },
         {
             "name": "nette/neon",
@@ -1764,16 +1764,16 @@
         },
         {
             "name": "latte/latte",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/latte.git",
-                "reference": "7d30f7bfd58cb017c47d7e14ed93286ce2ca1bc9"
+                "reference": "b62ee346467e1e2402a43c499cf6047fddc5d321"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/latte/zipball/7d30f7bfd58cb017c47d7e14ed93286ce2ca1bc9",
-                "reference": "7d30f7bfd58cb017c47d7e14ed93286ce2ca1bc9",
+                "url": "https://api.github.com/repos/nette/latte/zipball/b62ee346467e1e2402a43c499cf6047fddc5d321",
+                "reference": "b62ee346467e1e2402a43c499cf6047fddc5d321",
                 "shasum": ""
             },
             "require": {
@@ -1826,7 +1826,7 @@
                 "templating",
                 "twig"
             ],
-            "time": "2016-09-27 13:10:19"
+            "time": "2017-01-19 11:06:59"
         },
         {
             "name": "mrtnzlml/testbench",
