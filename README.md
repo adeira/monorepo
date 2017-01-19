@@ -30,6 +30,14 @@ Commits should be performed in submodule (PhpStorm can handle it), but push shou
 
 You should take into account that submodules behaves like ordinary Git repositories so you not be able to push without changing their remote origin. I warned you...
 
+Updating this repo via `git pull` should be quite straightforward:
+
+    git pull
+    git submodule update
+    composer adeira:collect
+    composer update
+    ./run-tests.sh
+
 Adding and Removing submodules
 -----
 Adding new submodules:
