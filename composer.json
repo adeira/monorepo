@@ -41,7 +41,8 @@
       "Adeira\\Monolog\\": ["Component/monolog/Monolog/"],
       "Adeira\\Monolog\\Tests\\": ["Component/monolog/tests/Adeira/Monolog/"],
       "Librette\\Application\\PresenterFactory\\": ["Component/presenter-factory/src/"]
-    }
+    },
+    "files": [["Component/presenter-factory/src/exceptions.php"]]
   },
   "minimum-stability": "stable"
 }

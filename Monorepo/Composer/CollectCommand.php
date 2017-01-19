@@ -6,9 +6,9 @@ use Composer\DependencyResolver\Pool;
 use Composer\Json\JsonFile;
 use Composer\Json\JsonManipulator;
 use Composer\Package\Version\VersionSelector;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\PlatformRepository;
-use Composer\Repository\RepositoryFactory;
+use Composer\Repository\{
+	CompositeRepository, PlatformRepository, RepositoryFactory
+};
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -60,16 +60,14 @@ class CollectCommand extends \Composer\Command\BaseCommand
 			$manipulator->addLink('replace', $componentName, 'self.version');
 			$restricted[$componentName] = $componentName;
 
-			if (isset($componentData['autoload'])) {
-				foreach ($componentData['autoload']['psr-4'] as $namespace => $destination) {
-					$name = ltrim($componentName, 'adeira/');
-					$autoload[preg_replace('~\\\~', '\\\\', $namespace)][] = "Component/$name/$destination";
-				}
-			}
-			if (isset($componentData['autoload-dev'])) {
-				foreach ($componentData['autoload-dev']['psr-4'] as $namespace => $destination) { //FIXME: dry
-					$name = ltrim($componentName, 'adeira/');
-					$autoload[preg_replace('~\\\~', '\\\\', $namespace)][] = "Component/$name/$destination";
+			foreach (['autoload', 'autoload-dev'] as $autoloadGroup) {
+				foreach (['psr-0', 'psr-4', 'classmap', 'files'] as $autoloadType) {
+					if (isset($componentData[$autoloadGroup]) && isset($componentData[$autoloadGroup][$autoloadType])) {
+						foreach ($componentData[$autoloadGroup][$autoloadType] as $namespace => $destination) {
+							$name = ltrim($componentName, 'adeira/');
+							$autoload[$autoloadType][$namespace][] = "Component/$name/$destination";
+						}
+					}
 				}
 			}
 		}
@@ -99,7 +97,7 @@ class CollectCommand extends \Composer\Command\BaseCommand
 
 		// update 'autoload'
 		$io->write(sprintf(' > <comment>Generate autoloaders</comment>'));
-		$manipulator->addMainKey('autoload', ['psr-4' => $autoload]);
+		$manipulator->addMainKey('autoload', $autoload);
 
 		// persist
 		file_put_contents($composerFile, $manipulator->getContents());
