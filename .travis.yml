@@ -16,7 +16,7 @@ before_script:
   - composer dump-autoload
 
 script:
-  - ./run-tests.sh
+  - php run-tests.php
 
 notifications:
   email: false
