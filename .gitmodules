@@ -4,9 +4,6 @@
 [submodule "Component/monolog"]
 	path = Component/monolog
 	url = git@github.com:adeira/monolog.git
-[submodule "Component/code-quality"]
-	path = Component/code-quality
-	url = git@github.com:adeira/code-quality.git
 [submodule "Component/workflow"]
 	path = Component/workflow
 	url = git@github.com:adeira/workflow.git

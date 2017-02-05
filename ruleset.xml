@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<ruleset>
-	<!-- FIXME: doesn't work in superproject environment -->
-	<rule ref="./Component/code-quality/ruleset.xml"/>
-</ruleset>
